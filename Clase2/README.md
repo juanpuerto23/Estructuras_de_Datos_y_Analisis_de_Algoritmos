@@ -12,9 +12,10 @@ Este valor debe ser ingresado al algoritmo en su ejecución propia.
 
 ## Capturas de tiempo de ejcución
 ### Captura 1
+![Captura1](/Clase2/capturaTiempoEjecucion1.png)
 
 ### Captura 2 
-![Captura2](/Clase2/capturaTiempoEjecucion.png)
+![Captura2](/Clase2/capturaTiempoEjecucion2.png)
 
 ## Tabla de valores
 ![Tabla1](/Clase2/tablaTiempoEjecucion.png)
