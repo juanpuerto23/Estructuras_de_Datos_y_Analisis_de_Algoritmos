@@ -1,19 +1,21 @@
 import random
 import time
 
+n = int(input("Digite n: "))
+x = int(n/5)
 vector = []
 
 inicioTiempo = time.time()
 
-for i in range(800):
+for i in range(x):
     vector.append(random.randint(1,400))
-for i in range(800):
+for i in range(x):
     vector.append(random.randint(401, 800))
-for i in range(800):
+for i in range(x):
     vector.append(random.randint(801, 1200))
-for i in range(800):
+for i in range(x):
     vector.append(random.randint(1201, 1600))
-for i in range(800):
+for i in range(x):
     vector.append(random.randint(1601, 2000))
 
 def metodo_burbuja(arr): ## El método burbuja es el encargado de organizar los numeros numero por numero intercambiandolos de posición
