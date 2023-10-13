@@ -1,8 +1,31 @@
+class Pila:
+    def __init__(self):
+        self.items = []
+    
+    def apilar(self, item):
+        self.items.append(item)
+    
+    def desapilar(self):
+        return self.items.pop()
+    
+    def pila_vacia(self):
+        return self.items == []
+
 import random
-categoria_libro = ['A', 'B', 'C']
-m = int(input("Libros a generar: "))
-while True:
-    libros = random.choices(categoria_libro, k = m)
-    if libros[0] == 'A' and libros[-1] == 'C':
-        print(libros)
-        break
+m = int(input("Ingrese la N cantidad de libros: "))
+libros = [] * m
+
+for i in range(m):
+    categoria_libro = input("Ingrese la categoria del libro (A,B,C): ")
+    libros.append(categoria_libro)
+    i =+ 1
+print("La lista creada es: ",libros)
+
+pila = Pila()
+
+for i in range(m):
+    if libros[0] != "A":
+        pila.apilar(libros[1])
+        i =+1
+
+print("La lista creada es:", libros)
