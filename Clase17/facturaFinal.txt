@@ -1,16 +1,14 @@
 
     DATOS Y PROCESOS CORPORATIVOS LTDA
 
-Facturas de ventas Nro. 10      Fecha: 28/10/2023
+Facturas de ventas Nro. 10      Fecha: 01/11/2023
        Nit: 890090200-1 Regimen Comun
     Cliente: 1052836062 - Sebastian Puerto
 
 |Codigo |Nombre  |Cantidad|Vlr Unit|%Iva |Iva  |Vlr Total |
-|003    |Papa    |  2     |  4500  |  25 | 2250.0 | 9000.0 |
-
-                    Susbtotal: $3000
-                    Total Iva: $300
-                    Total Venta: $3300
-
-Nombre del Cliente: Sebastian Puerto
-Producto: Papa
+|001    |Pescado    |  2     |  2500  |  15 | 750.0 | 5000 |
+|002    |Carne    |  4     |  5500  |  35 | 7699.999999999999 | 22000 |
+|003    |Papa    |  1     |  4500  |  25 | 1125.0 | 4500 |
+                    Subtotal: $31500
+                    Total Iva: $9575.0
+                    Total Venta: $41075.0

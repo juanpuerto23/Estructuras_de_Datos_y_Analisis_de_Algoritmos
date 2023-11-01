@@ -1,67 +1,87 @@
-# Plantilla del recibo
+plantilla_producto = "|{cod_producto}    |{nombre_producto}    |  {cantidad_producto}     |  {precio_unidad}  |  {iva} | {ivaTotal} | {valor_Total} |"
 
-plantilla = """
+plantilla = f"""
     DATOS Y PROCESOS CORPORATIVOS LTDA
 
-Facturas de ventas Nro. 10      Fecha: {fecha}
+Facturas de ventas Nro. 10      Fecha: {{fecha}}
        Nit: 890090200-1 Regimen Comun
-    Cliente: {codigo_cliente} - {nombre_cliente}
+    Cliente: {{codigo_cliente}} - {{nombre_cliente}}
 
 |Codigo |Nombre  |Cantidad|Vlr Unit|%Iva |Iva  |Vlr Total |
-|{cod_producto}    |{nombre_producto}    |  {cantidad_producto}     |  {precio_unidad}  |  {iva} | {ivaTotal} | {valor_Total} |
-
-                    Susbtotal: $3000
-                    Total Iva: $300
-                    Total Venta: $3300
-
+{{productos}}
+                    Subtotal: ${{subtotal}}
+                    Total Iva: ${{total_iva}}
+                    Total Venta: ${{total_venta}}
 """
+
 # Diccionario de elementos de la canasta basica
 
 productos_data = {
-    "001" : {"nombre": "Pescado", "precio_unitario": 2500, "porcentaje_iva": (15)},
-    "002" : {"nombre": "Carne", "precio_unitario": 5500, "porcentaje_iva": (35)},
-    "003" : {"nombre": "Papa", "precio_unitario": 4500, "porcentaje_iva": (25)},
-    "004" : {"nombre": "Arroz", "precio_unitario": 3000, "porcentaje_iva": (5)},
-    "005" : {"nombre": "Mora", "precio_unitario": 500, "porcentaje_iva": (45)},
+    "001" : {"nombre": "Pescado", "precio_unitario": 2500, "porcentaje_iva": 15},
+    "002" : {"nombre": "Carne", "precio_unitario": 5500, "porcentaje_iva": 35},
+    "003" : {"nombre": "Papa", "precio_unitario": 4500, "porcentaje_iva": 25},
+    "004" : {"nombre": "Arroz", "precio_unitario": 3000, "porcentaje_iva": 5},
+    "005" : {"nombre": "Mora", "precio_unitario": 500, "porcentaje_iva": 45},
 }
 
-# Datos pedidos
+# Inicializar variables
+subtotal = 0
+total_iva = 0
+total_venta = 0
 
+# Datos pedidos
 fecha = input("Ingrese la fecha actual: ")
 cliente_codigo = input("Ingrese la cedula del Cliente: ")
 cliente_nombre = input("Ingrese el nombre del Cliente: ")
-codigo_producto = input("Ingrese el código del producto: ")
-if codigo_producto in productos_data:
-    producto = productos_data[codigo_producto]
-    nombre_producto = producto['nombre']
-    precio_unidad = producto['precio_unitario']
-    porcentaje_iva = producto['porcentaje_iva']
-else:
-    print("No se encontro el codigo del producto que digitaste.")
 
-cantidad_producto = int(input("Ingrese la cantidad del producto: "))
-if cantidad_producto > 1:
+productos_factura = []
+
+while True:
+    codigo_producto = input("Ingrese el código del producto (o 'fin' para terminar): ")
+    if codigo_producto == 'fin':
+        break
+
+    if codigo_producto in productos_data:
+        producto = productos_data[codigo_producto]
+        nombre_producto = producto['nombre']
+        precio_unidad = producto['precio_unitario']
+        porcentaje_iva = producto['porcentaje_iva']
+    else:
+        print("No se encontro el codigo del producto que digitaste.")
+        continue
+
+    cantidad_producto = int(input("Ingrese la cantidad del producto: "))
     valor_total = precio_unidad * cantidad_producto
-else:
-    valor_total = precio_unidad
 
-# Calcular el iva
+    # Calcular el iva
+    iva = (porcentaje_iva / 100) * valor_total
+    subtotal += valor_total
+    total_iva += iva
 
-iva = float(porcentaje_iva) / 100
-valor_total = float(cantidad_producto) * float(precio_unidad)
-iva_total = valor_total * iva
+    datos_producto = {
+        "cod_producto": codigo_producto,
+        "nombre_producto": nombre_producto,
+        "cantidad_producto": cantidad_producto,
+        "precio_unidad": precio_unidad,
+        "iva": porcentaje_iva,
+        "ivaTotal": iva,
+        "valor_Total": valor_total
+    }
+
+    productos_factura.append(plantilla_producto.format(**datos_producto))
+
+productos_generados = "\n".join(productos_factura)
+
+total_venta = subtotal + total_iva
 
 datos_factura = {
     "fecha": fecha,
     "codigo_cliente": cliente_codigo,
     "nombre_cliente": cliente_nombre,
-    "cod_producto": codigo_producto,
-    "nombre_producto": nombre_producto,
-    "cantidad_producto": cantidad_producto,
-    "precio_unidad": precio_unidad,
-    "iva": porcentaje_iva,
-    "ivaTotal": iva_total,
-    "valor_Total": valor_total
+    "productos": productos_generados,
+    "subtotal": subtotal,
+    "total_iva": total_iva,
+    "total_venta": total_venta
 }
 
 factura_generada = plantilla.format(**datos_factura)
